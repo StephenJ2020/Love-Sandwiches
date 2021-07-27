@@ -72,6 +72,14 @@ def calculate_surplus_data(sales_row):
     stock_row = stock[-1]
     print("Please wait...")
     print(f"The last stock entry was: {stock_row}")
+    print(f"The last Sales entry was: {sales_row}")
+
+    surplus_data = []
+    for stock, sales in  zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+    print(surplus_data)
+    return surplus_data
 
 
 def main():
@@ -79,7 +87,9 @@ def main():
     #print(data)  was used to check data type. Was string data and needs to be integer
     sales_data = [int(num) for num in data]
     update_sales_worksheet(sales_data)
-    calculate_surplus_data(sales_data)
+    #calculate_surplus_data(sales_data) after we added the return surplus data to line 82 we changed this line to the line below
+    new_surplus_data = calculate_surplus_data(sales_data)
+    print(new_surplus_data) # with this we could remove lines 71-75
 
 print("Welcome to Love Sandwiches Data Automation.\n")
 main()
