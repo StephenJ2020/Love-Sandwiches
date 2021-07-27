@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -60,7 +61,25 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("Sales worksheet updated successfully.\n")
 
-data = get_sales_data()
-#print(data)  was used to check data type. Was string data and needs to be integer
-sales_data = [int(num) for num in data]
-update_sales_worksheet(sales_data)
+
+def calculate_surplus_data(sales_row):
+    '''
+    Compare sales with stock and calculate the surplus for each item type
+    '''
+    print("Calculating surplus data...\n")
+    stock = SHEET.worksheet("stock").get_all_values()
+    pprint(stock) # can be removed but was used to check that stock levels are being pulled over from the worksheet.
+    stock_row = stock[-1]
+    print("Please wait...")
+    print(f"The last stock entry was: {stock_row}")
+
+
+def main():
+    data = get_sales_data()
+    #print(data)  was used to check data type. Was string data and needs to be integer
+    sales_data = [int(num) for num in data]
+    update_sales_worksheet(sales_data)
+    calculate_surplus_data(sales_data)
+
+print("Welcome to Love Sandwiches Data Automation.\n")
+main()
