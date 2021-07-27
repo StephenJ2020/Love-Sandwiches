@@ -81,6 +81,14 @@ def calculate_surplus_data(sales_row):
     print(surplus_data)
     return surplus_data
 
+def update_surplus_worksheet(surplus_update):
+    '''
+    Update surplus Worksheet, add a new row with the surplus data provied.
+    '''
+    print("Updating surplus worksheet...\n")
+    surplus_worksheet = SHEET.worksheet("surplus")
+    surplus_worksheet.append_row(surplus_update)
+    print("Surplus worksheet updated successfully.\n")
 
 def main():
     data = get_sales_data()
@@ -89,7 +97,8 @@ def main():
     update_sales_worksheet(sales_data)
     #calculate_surplus_data(sales_data) after we added the return surplus data to line 82 we changed this line to the line below
     new_surplus_data = calculate_surplus_data(sales_data)
-    print(new_surplus_data) # with this we could remove lines 71-75
+    #print(new_surplus_data) # with this we could remove lines 71-75
+    update_surplus_worksheet(new_surplus_data)
 
 print("Welcome to Love Sandwiches Data Automation.\n")
 main()
