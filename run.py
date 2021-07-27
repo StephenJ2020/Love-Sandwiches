@@ -35,6 +35,7 @@ def validate_data(values):
     '''
     #print(values) was used to test code before we added the Try Except Statement
     try:
+        [int(value) for value in values]   # This is a List Comprehension! If value is not an integer it will return a ValueError
         if len(values) != 6:
             raise ValueError(
             f"Exactly 6 values required, you provided {len(values)}"
