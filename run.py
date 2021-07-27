@@ -15,7 +15,8 @@ sales = SHEET.worksheet('sales')
 
 def get_sales_data():
     '''
-    Get sales figures input from the user
+    Get sales figures input from the user.
+    Will run a while loop to repeatedly request data until the data entered is valid.
     '''
     while True:
         print("Please enter sales data from the last market")
@@ -50,4 +51,16 @@ def validate_data(values):
         return False
     return True
 
+def update_sales_worksheet(data):
+    '''
+    Update sales Worksheet, add a new row with the list data provied.
+    '''
+    print("Updating sales worksheet...\n")
+    sales_worksheet = SHEET.worksheet("sales")
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully.\n")
+
 data = get_sales_data()
+#print(data)  was used to check data type. Was string data and needs to be integer
+sales_data = [int(num) for num in data]
+update_sales_worksheet(sales_data)
