@@ -122,6 +122,23 @@ def get_last_5_entries_sales():
     #pprint(columns) Used to check if was pulling only 5 values from sales worksheet
     return columns
 
+
+def calculate_stock_data(data):
+    '''
+    Calculate the average stock for each item type, adding 10%
+    '''
+    print("Calculating stock data...\n")
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+    
+    #print(new_stock_data) - Used to test function was working
+    return new_stock_data
+
 def main():
     data = get_sales_data()
     #print(data)  was used to check data type. Was string data and needs to be integer
@@ -131,8 +148,11 @@ def main():
     new_surplus_data = calculate_surplus_data(sales_data)
     #print(new_surplus_data) # with this we could remove lines 71-75
     update_worksheet(new_surplus_data, "surplus")
+    sales_columns = get_last_5_entries_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    #print(stock_data) Again this was used to test stock_data
+    update_worksheet(stock_data, "stock")
 
 print("Welcome to Love Sandwiches Data Automation.\n")
-#main()
+main()
 
-sales_columns = get_last_5_entries_sales()
